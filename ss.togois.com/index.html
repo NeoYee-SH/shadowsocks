@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="None">
+  
+  <link rel="shortcut icon" href="./img/favicon.ico">
+  <title>ss安装指南</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="./css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Home";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = "/";
+  </script>
+  
+  <script src="./js/jquery-2.1.1.min.js"></script>
+  <script src="./js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> ss安装指南</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="https://github.com/yihuaiyuan/shadowsocks" target="_blank">GitHub一键脚本</a>
+    <ul class="subnav">
+
+        <li class="toctree-l2"><a href="#_1">服务端</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#1">1. 租一台可以访问外网的服务器。</a></li>
+        
+            <li><a class="toctree-l3" href="#2">2. 更换内核，安装锐速加速软件。</a></li>
+        
+            <li><a class="toctree-l3" href="#3">3. 安装基本工具</a></li>
+        
+            <li><a class="toctree-l3" href="#4-ss">4. 安装ss并配置</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#_2">客户端</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#1-mac">1. Mac上</a></li>
+        
+            <li><a class="toctree-l3" href="#2-windows">2. Windows上</a></li>
+        
+            <li><a class="toctree-l3" href="#3-iphone">3. iPhone上</a></li>
+        
+            <li><a class="toctree-l3" href="#4">4. 安卓上</a></li>
+        
+        </ul>
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">ss安装指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>shadowsocks</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="_1">服务端</h2>
+<h4 id="1">1. 租一台可以访问外网的服务器。</h4>
+<pre><code>#CentOS7.5
+[root@vultr_test ~]# cat /etc/redhat-release 
+CentOS Linux release 7.5.1804 (Core)
+</code></pre>
+
+<h4 id="2">2. 更换内核，安装锐速加速软件。</h4>
+<pre><code>#可以跳过
+[root@vultr_test ~]# rpm -qa|grep kernel
+kernel-3.10.0-862.el7.x86_64
+kernel-tools-libs-3.10.0-862.14.4.el7.x86_64
+kernel-3.10.0-862.14.4.el7.x86_64
+kernel-tools-3.10.0-862.14.4.el7.x86_64
+[root@vultr_test ~]# rpm -ivh http://soft.91yun.org/ISO/Linux/CentOS/kernel/kernel-3.10.0-229.1.2.el7.x86_64.rpm --force
+Retrieving http://soft.91yun.org/ISO/Linux/CentOS/kernel/kernel-3.10.0-229.1.2.el7.x86_64.rpm
+Preparing...                          ################################# [100%]
+Updating / installing...
+   1:kernel-3.10.0-229.1.2.el7        ################################# [100%]
+[root@vultr_test ~]# rpm -qa|grep kernel
+kernel-3.10.0-862.el7.x86_64
+kernel-tools-libs-3.10.0-862.14.4.el7.x86_64
+kernel-3.10.0-862.14.4.el7.x86_64
+kernel-tools-3.10.0-862.14.4.el7.x86_64
+kernel-3.10.0-229.1.2.el7.x86_64
+
+
+</code></pre>
+
+<h4 id="3">3. 安装基本工具</h4>
+<pre><code>[root@vultr_test ~]# yum -y install net-tools vim
+[root@vultr_test ~]# wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
+[root@vultr_test ~]# python2.7 get-pip.py
+</code></pre>
+
+<h4 id="4-ss">4. 安装ss并配置</h4>
+<pre><code>#安装
+[root@vultr_test ~]# pip install shadowsocks
+
+#配置
+[root@vultr_test ~]# vim /etc/shadowsocks.json
+---
+{
+    &quot;server&quot;:&quot;0.0.0.0&quot;,
+    &quot;server_port&quot;:8765,
+    &quot;password&quot;:&quot;bd87d3600c6baffe20f0a03ebf17985f&quot;,
+    &quot;timeout&quot;:300,
+    &quot;method&quot;:&quot;rc4-md5&quot;
+}
+---
+
+#启动
+[root@vultr_test ~]# ssserver -c /etc/shadowsocks.json -d start 
+[root@vultr_test ~]# netstat -anpt |grep python
+tcp        0      0 0.0.0.0:8765            0.0.0.0:*               LISTEN      1162/python2.7  
+
+#关闭防火墙
+[root@vultr_test ~]# systemctl stop firewalld
+[root@vultr_test ~]# systemctl disable firewalld
+</code></pre>
+
+<h2 id="_2">客户端</h2>
+<h4 id="1-mac">1. Mac上</h4>
+<a href='https://github.com/shadowsocks/ShadowsocksX-NG/releases ' target="_blank">https://github.com/shadowsocks/ShadowsocksX-NG/releases 可选版本。</a>
+<p>下载后启动：
+<img alt="image" src="https://i.loli.net/2018/12/26/5c231d7c04dac.jpg" />
+单击小飞机，选择服务器-&gt;服务器设置，进入设置界面：</p>
+<p><img alt="image" src="https://i.loli.net/2018/12/26/5c231dc1e399f.jpg" /></p>
+<p>添加一个服务器配置，对应的参数是服务端/etc/shadowsocks.json里的参数，填写好相关选项，确定就OK了。</p>
+<p><img alt="image" src="https://i.loli.net/2018/12/26/5c231df29078e.jpg" /></p>
+<p><img alt="image" src="https://i.loli.net/2018/12/26/5c231e17d16a1.jpg" /></p>
+<h4 id="2-windows">2. Windows上</h4>
+<a href='https://github.com/shadowsocks/shadowsocks-windows/releases' target="_blank">下载 ：https://github.com/shadowsocks/shadowsocks-windows/releases</a>
+<p>双击启动后， 在桌面右下角可以看到小飞机：
+<img alt="image" src="https://i.loli.net/2018/12/26/5c231eb907f31.jpg" /></p>
+<p>鼠标放在小飞机上面，然后右键-&gt;服务器-&gt;编辑服务器-&gt;添加：</p>
+<p><img alt="image" src="https://i.loli.net/2018/12/26/5c231ebc091b5.jpg" /></p>
+<p>对应的参数是服务端/etc/shadowsocks.json里的参数，设置一个代理端口，通常是1080。</p>
+<p>这样windows上的客户端就安装成功，但是现在还是不能访问外网，需要使用浏览器的扩展插件。</p>
+<p>谷歌浏览器下载扩展程序SwitchyOmega.crx；
+打开谷歌扩展程序页面chrome://extensions/；
+把SwitchyOmega.crx文件拖到扩展程序页面添加，</p>
+<p><img alt="image" src="https://i.loli.net/2018/12/26/5c231ebd4081e.jpg" /></p>
+<p>添加后通常会自动跳转到设置界面：
+<img alt="image" src="https://i.loli.net/2018/12/26/5c231ebb5d37c.jpg" /></p>
+<p>可以直接跳过教程，也可以再看看。
+选择代理，设置为
+<img alt="image" src="https://i.loli.net/2018/12/26/5c231ebc6a88e.jpg" /></p>
+<p>最后点击应用选项
+<img alt="image" src="https://i.loli.net/2018/12/26/5c231ebbb8798.jpg" /></p>
+<p>保存成功之后，看到浏览器右上角的logo：
+<img alt="image" src="https://i.loli.net/2018/12/26/5c231ebcf3d1d.jpg" /></p>
+<p>单机，选择proxy代理模式就可以了：</p>
+<p><img alt="image" src="https://i.loli.net/2018/12/26/5c231ebd4c4d3.jpg" /></p>
+<h4 id="3-iphone">3. iPhone上</h4>
+<p>AppStore搜索wingy（任何类似软件都可以），安装：
+<img alt="image" src="https://i.loli.net/2018/12/26/5c23245b6b60c.jpg" /></p>
+<p>新增线路：</p>
+<p><img alt="image" src="https://i.loli.net/2018/12/26/5c23245b5b120.jpg" /></p>
+<p><img alt="image" src="https://i.loli.net/2018/12/26/5c23245b6d4d0.jpg" /></p>
+<p>对应的参数是服务端/etc/shadowsocks.json里的参数。</p>
+<p>然后保存回到首页，选择此线路，点击中间的开关，开启vpn模式就可以了：
+<img alt="image" src="https://i.loli.net/2018/12/26/5c23245b50c34.jpg" />
+<img alt="image" src="https://i.loli.net/2018/12/26/5c23245b697b5.jpg" /></p>
+<h4 id="4">4. 安卓上</h4>
+<p>下载安装影梭：</p>
+<a href='https://github.com/shadowsocks/shadowsocks-android/releases' target="_blank">https://github.com/shadowsocks/shadowsocks-android/releases</a>
+<p><img alt="image" src="https://i.loli.net/2018/12/26/5c23253a69ae5.jpg" /></p>
+<p>新增配置：</p>
+<p><img alt="image" src="https://i.loli.net/2018/12/26/5c23253a6be49.jpg" /></p>
+<p>对应的参数是服务端/etc/shadowsocks.json里的参数, 本地端口通常是1080.</p>
+<p>配置完成之后保存，并且开启。</p>
+<p><img alt="image" src="https://i.loli.net/2018/12/26/5c23253a6dcba.jpg" /></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  <!--Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.-->
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="./js/theme.js"></script>
+      <script src="./search/require.js"></script>
+      <script src="./search/search.js"></script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 0.17.5
+Build Date UTC : 2018-12-05 13:32:37
+-->

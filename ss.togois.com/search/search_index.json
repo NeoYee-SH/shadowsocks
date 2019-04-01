@@ -1,0 +1,59 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "\u670d\u52a1\u7aef\n\n\n1. \u79df\u4e00\u53f0\u53ef\u4ee5\u8bbf\u95ee\u5916\u7f51\u7684\u670d\u52a1\u5668\u3002\n\n\n#CentOS7.5\n[root@vultr_test ~]# cat /etc/redhat-release \nCentOS Linux release 7.5.1804 (Core)\n\n\n\n\n2. \u66f4\u6362\u5185\u6838\uff0c\u5b89\u88c5\u9510\u901f\u52a0\u901f\u8f6f\u4ef6\u3002\n\n\n#\u53ef\u4ee5\u8df3\u8fc7\n[root@vultr_test ~]# rpm -qa|grep kernel\nkernel-3.10.0-862.el7.x86_64\nkernel-tools-libs-3.10.0-862.14.4.el7.x86_64\nkernel-3.10.0-862.14.4.el7.x86_64\nkernel-tools-3.10.0-862.14.4.el7.x86_64\n[root@vultr_test ~]# rpm -ivh http://soft.91yun.org/ISO/Linux/CentOS/kernel/kernel-3.10.0-229.1.2.el7.x86_64.rpm --force\nRetrieving http://soft.91yun.org/ISO/Linux/CentOS/kernel/kernel-3.10.0-229.1.2.el7.x86_64.rpm\nPreparing...                          ################################# [100%]\nUpdating / installing...\n   1:kernel-3.10.0-229.1.2.el7        ################################# [100%]\n[root@vultr_test ~]# rpm -qa|grep kernel\nkernel-3.10.0-862.el7.x86_64\nkernel-tools-libs-3.10.0-862.14.4.el7.x86_64\nkernel-3.10.0-862.14.4.el7.x86_64\nkernel-tools-3.10.0-862.14.4.el7.x86_64\nkernel-3.10.0-229.1.2.el7.x86_64\n\n\n\n\n\n\n3. \u5b89\u88c5\u57fa\u672c\u5de5\u5177\n\n\n[root@vultr_test ~]# yum -y install net-tools vim\n[root@vultr_test ~]# wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py\n[root@vultr_test ~]# python2.7 get-pip.py\n\n\n\n\n4. \u5b89\u88c5ss\u5e76\u914d\u7f6e\n\n\n#\u5b89\u88c5\n[root@vultr_test ~]# pip install shadowsocks\n\n#\u914d\u7f6e\n[root@vultr_test ~]# vim /etc/shadowsocks.json\n---\n{\n    \nserver\n:\n0.0.0.0\n,\n    \nserver_port\n:8765,\n    \npassword\n:\nbd87d3600c6baffe20f0a03ebf17985f\n,\n    \ntimeout\n:300,\n    \nmethod\n:\nrc4-md5\n\n}\n---\n\n#\u542f\u52a8\n[root@vultr_test ~]# ssserver -c /etc/shadowsocks.json -d start \n[root@vultr_test ~]# netstat -anpt |grep python\ntcp        0      0 0.0.0.0:8765            0.0.0.0:*               LISTEN      1162/python2.7  \n\n#\u5173\u95ed\u9632\u706b\u5899\n[root@vultr_test ~]# systemctl stop firewalld\n[root@vultr_test ~]# systemctl disable firewalld\n\n\n\n\n\u5ba2\u6237\u7aef\n\n\n1. Mac\u4e0a\n\n\nhttps://github.com/shadowsocks/ShadowsocksX-NG/releases \u53ef\u9009\u7248\u672c\u3002\n\n\n\u4e0b\u8f7d\u540e\u542f\u52a8\uff1a\n\n\n\u5355\u51fb\u5c0f\u98de\u673a\uff0c\u9009\u62e9\u670d\u52a1\u5668-\n\u670d\u52a1\u5668\u8bbe\u7f6e\uff0c\u8fdb\u5165\u8bbe\u7f6e\u754c\u9762\uff1a\n\n\n\n\n\u6dfb\u52a0\u4e00\u4e2a\u670d\u52a1\u5668\u914d\u7f6e\uff0c\u5bf9\u5e94\u7684\u53c2\u6570\u662f\u670d\u52a1\u7aef/etc/shadowsocks.json\u91cc\u7684\u53c2\u6570\uff0c\u586b\u5199\u597d\u76f8\u5173\u9009\u9879\uff0c\u786e\u5b9a\u5c31OK\u4e86\u3002\n\n\n\n\n\n\n2. Windows\u4e0a\n\n\n\u4e0b\u8f7d \uff1ahttps://github.com/shadowsocks/shadowsocks-windows/releases\n\n\n\u53cc\u51fb\u542f\u52a8\u540e\uff0c \u5728\u684c\u9762\u53f3\u4e0b\u89d2\u53ef\u4ee5\u770b\u5230\u5c0f\u98de\u673a\uff1a\n\n\n\n\u9f20\u6807\u653e\u5728\u5c0f\u98de\u673a\u4e0a\u9762\uff0c\u7136\u540e\u53f3\u952e-\n\u670d\u52a1\u5668-\n\u7f16\u8f91\u670d\u52a1\u5668-\n\u6dfb\u52a0\uff1a\n\n\n\n\n\u5bf9\u5e94\u7684\u53c2\u6570\u662f\u670d\u52a1\u7aef/etc/shadowsocks.json\u91cc\u7684\u53c2\u6570\uff0c\u8bbe\u7f6e\u4e00\u4e2a\u4ee3\u7406\u7aef\u53e3\uff0c\u901a\u5e38\u662f1080\u3002\n\n\n\u8fd9\u6837windows\u4e0a\u7684\u5ba2\u6237\u7aef\u5c31\u5b89\u88c5\u6210\u529f\uff0c\u4f46\u662f\u73b0\u5728\u8fd8\u662f\u4e0d\u80fd\u8bbf\u95ee\u5916\u7f51\uff0c\u9700\u8981\u4f7f\u7528\u6d4f\u89c8\u5668\u7684\u6269\u5c55\u63d2\u4ef6\u3002\n\n\n\u8c37\u6b4c\u6d4f\u89c8\u5668\u4e0b\u8f7d\u6269\u5c55\u7a0b\u5e8fSwitchyOmega.crx\uff1b\n\u6253\u5f00\u8c37\u6b4c\u6269\u5c55\u7a0b\u5e8f\u9875\u9762chrome://extensions/\uff1b\n\u628aSwitchyOmega.crx\u6587\u4ef6\u62d6\u5230\u6269\u5c55\u7a0b\u5e8f\u9875\u9762\u6dfb\u52a0\uff0c\n\n\n\n\n\u6dfb\u52a0\u540e\u901a\u5e38\u4f1a\u81ea\u52a8\u8df3\u8f6c\u5230\u8bbe\u7f6e\u754c\u9762\uff1a\n\n\n\n\u53ef\u4ee5\u76f4\u63a5\u8df3\u8fc7\u6559\u7a0b\uff0c\u4e5f\u53ef\u4ee5\u518d\u770b\u770b\u3002\n\u9009\u62e9\u4ee3\u7406\uff0c\u8bbe\u7f6e\u4e3a\n\n\n\n\u6700\u540e\u70b9\u51fb\u5e94\u7528\u9009\u9879\n\n\n\n\u4fdd\u5b58\u6210\u529f\u4e4b\u540e\uff0c\u770b\u5230\u6d4f\u89c8\u5668\u53f3\u4e0a\u89d2\u7684logo\uff1a\n\n\n\n\u5355\u673a\uff0c\u9009\u62e9proxy\u4ee3\u7406\u6a21\u5f0f\u5c31\u53ef\u4ee5\u4e86\uff1a\n\n\n\n\n3. iPhone\u4e0a\n\n\nAppStore\u641c\u7d22wingy\uff08\u4efb\u4f55\u7c7b\u4f3c\u8f6f\u4ef6\u90fd\u53ef\u4ee5\uff09\uff0c\u5b89\u88c5\uff1a\n\n\n\n\u65b0\u589e\u7ebf\u8def\uff1a\n\n\n\n\n\n\n\u5bf9\u5e94\u7684\u53c2\u6570\u662f\u670d\u52a1\u7aef/etc/shadowsocks.json\u91cc\u7684\u53c2\u6570\u3002\n\n\n\u7136\u540e\u4fdd\u5b58\u56de\u5230\u9996\u9875\uff0c\u9009\u62e9\u6b64\u7ebf\u8def\uff0c\u70b9\u51fb\u4e2d\u95f4\u7684\u5f00\u5173\uff0c\u5f00\u542fvpn\u6a21\u5f0f\u5c31\u53ef\u4ee5\u4e86\uff1a\n\n\n\n\n\n4. \u5b89\u5353\u4e0a\n\n\n\u4e0b\u8f7d\u5b89\u88c5\u5f71\u68ad\uff1a\n\n\nhttps://speedfast365-big.com/static/dl/shadowsocks-nightly-4.2.5.apk\n\n\n\n\n\u65b0\u589e\u914d\u7f6e\uff1a\n\n\n\n\n\u5bf9\u5e94\u7684\u53c2\u6570\u662f\u670d\u52a1\u7aef/etc/shadowsocks.json\u91cc\u7684\u53c2\u6570, \u672c\u5730\u7aef\u53e3\u901a\u5e38\u662f1080.\n\n\n\u914d\u7f6e\u5b8c\u6210\u4e4b\u540e\u4fdd\u5b58\uff0c\u5e76\u4e14\u5f00\u542f\u3002", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#_1", 
+            "text": "", 
+            "title": "\u670d\u52a1\u7aef"
+        }, 
+        {
+            "location": "/#1", 
+            "text": "#CentOS7.5\n[root@vultr_test ~]# cat /etc/redhat-release \nCentOS Linux release 7.5.1804 (Core)", 
+            "title": "1. \u79df\u4e00\u53f0\u53ef\u4ee5\u8bbf\u95ee\u5916\u7f51\u7684\u670d\u52a1\u5668\u3002"
+        }, 
+        {
+            "location": "/#2", 
+            "text": "#\u53ef\u4ee5\u8df3\u8fc7\n[root@vultr_test ~]# rpm -qa|grep kernel\nkernel-3.10.0-862.el7.x86_64\nkernel-tools-libs-3.10.0-862.14.4.el7.x86_64\nkernel-3.10.0-862.14.4.el7.x86_64\nkernel-tools-3.10.0-862.14.4.el7.x86_64\n[root@vultr_test ~]# rpm -ivh http://soft.91yun.org/ISO/Linux/CentOS/kernel/kernel-3.10.0-229.1.2.el7.x86_64.rpm --force\nRetrieving http://soft.91yun.org/ISO/Linux/CentOS/kernel/kernel-3.10.0-229.1.2.el7.x86_64.rpm\nPreparing...                          ################################# [100%]\nUpdating / installing...\n   1:kernel-3.10.0-229.1.2.el7        ################################# [100%]\n[root@vultr_test ~]# rpm -qa|grep kernel\nkernel-3.10.0-862.el7.x86_64\nkernel-tools-libs-3.10.0-862.14.4.el7.x86_64\nkernel-3.10.0-862.14.4.el7.x86_64\nkernel-tools-3.10.0-862.14.4.el7.x86_64\nkernel-3.10.0-229.1.2.el7.x86_64", 
+            "title": "2. \u66f4\u6362\u5185\u6838\uff0c\u5b89\u88c5\u9510\u901f\u52a0\u901f\u8f6f\u4ef6\u3002"
+        }, 
+        {
+            "location": "/#3", 
+            "text": "[root@vultr_test ~]# yum -y install net-tools vim\n[root@vultr_test ~]# wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py\n[root@vultr_test ~]# python2.7 get-pip.py", 
+            "title": "3. \u5b89\u88c5\u57fa\u672c\u5de5\u5177"
+        }, 
+        {
+            "location": "/#4-ss", 
+            "text": "#\u5b89\u88c5\n[root@vultr_test ~]# pip install shadowsocks\n\n#\u914d\u7f6e\n[root@vultr_test ~]# vim /etc/shadowsocks.json\n---\n{\n     server : 0.0.0.0 ,\n     server_port :8765,\n     password : bd87d3600c6baffe20f0a03ebf17985f ,\n     timeout :300,\n     method : rc4-md5 \n}\n---\n\n#\u542f\u52a8\n[root@vultr_test ~]# ssserver -c /etc/shadowsocks.json -d start \n[root@vultr_test ~]# netstat -anpt |grep python\ntcp        0      0 0.0.0.0:8765            0.0.0.0:*               LISTEN      1162/python2.7  \n\n#\u5173\u95ed\u9632\u706b\u5899\n[root@vultr_test ~]# systemctl stop firewalld\n[root@vultr_test ~]# systemctl disable firewalld", 
+            "title": "4. \u5b89\u88c5ss\u5e76\u914d\u7f6e"
+        }, 
+        {
+            "location": "/#_2", 
+            "text": "", 
+            "title": "\u5ba2\u6237\u7aef"
+        }, 
+        {
+            "location": "/#1-mac", 
+            "text": "https://github.com/shadowsocks/ShadowsocksX-NG/releases \u53ef\u9009\u7248\u672c\u3002  \u4e0b\u8f7d\u540e\u542f\u52a8\uff1a \n\u5355\u51fb\u5c0f\u98de\u673a\uff0c\u9009\u62e9\u670d\u52a1\u5668- \u670d\u52a1\u5668\u8bbe\u7f6e\uff0c\u8fdb\u5165\u8bbe\u7f6e\u754c\u9762\uff1a   \u6dfb\u52a0\u4e00\u4e2a\u670d\u52a1\u5668\u914d\u7f6e\uff0c\u5bf9\u5e94\u7684\u53c2\u6570\u662f\u670d\u52a1\u7aef/etc/shadowsocks.json\u91cc\u7684\u53c2\u6570\uff0c\u586b\u5199\u597d\u76f8\u5173\u9009\u9879\uff0c\u786e\u5b9a\u5c31OK\u4e86\u3002", 
+            "title": "1. Mac\u4e0a"
+        }, 
+        {
+            "location": "/#2-windows", 
+            "text": "\u4e0b\u8f7d \uff1ahttps://github.com/shadowsocks/shadowsocks-windows/releases  \u53cc\u51fb\u542f\u52a8\u540e\uff0c \u5728\u684c\u9762\u53f3\u4e0b\u89d2\u53ef\u4ee5\u770b\u5230\u5c0f\u98de\u673a\uff1a  \u9f20\u6807\u653e\u5728\u5c0f\u98de\u673a\u4e0a\u9762\uff0c\u7136\u540e\u53f3\u952e- \u670d\u52a1\u5668- \u7f16\u8f91\u670d\u52a1\u5668- \u6dfb\u52a0\uff1a   \u5bf9\u5e94\u7684\u53c2\u6570\u662f\u670d\u52a1\u7aef/etc/shadowsocks.json\u91cc\u7684\u53c2\u6570\uff0c\u8bbe\u7f6e\u4e00\u4e2a\u4ee3\u7406\u7aef\u53e3\uff0c\u901a\u5e38\u662f1080\u3002  \u8fd9\u6837windows\u4e0a\u7684\u5ba2\u6237\u7aef\u5c31\u5b89\u88c5\u6210\u529f\uff0c\u4f46\u662f\u73b0\u5728\u8fd8\u662f\u4e0d\u80fd\u8bbf\u95ee\u5916\u7f51\uff0c\u9700\u8981\u4f7f\u7528\u6d4f\u89c8\u5668\u7684\u6269\u5c55\u63d2\u4ef6\u3002  \u8c37\u6b4c\u6d4f\u89c8\u5668\u4e0b\u8f7d\u6269\u5c55\u7a0b\u5e8fSwitchyOmega.crx\uff1b\n\u6253\u5f00\u8c37\u6b4c\u6269\u5c55\u7a0b\u5e8f\u9875\u9762chrome://extensions/\uff1b\n\u628aSwitchyOmega.crx\u6587\u4ef6\u62d6\u5230\u6269\u5c55\u7a0b\u5e8f\u9875\u9762\u6dfb\u52a0\uff0c   \u6dfb\u52a0\u540e\u901a\u5e38\u4f1a\u81ea\u52a8\u8df3\u8f6c\u5230\u8bbe\u7f6e\u754c\u9762\uff1a  \u53ef\u4ee5\u76f4\u63a5\u8df3\u8fc7\u6559\u7a0b\uff0c\u4e5f\u53ef\u4ee5\u518d\u770b\u770b\u3002\n\u9009\u62e9\u4ee3\u7406\uff0c\u8bbe\u7f6e\u4e3a  \u6700\u540e\u70b9\u51fb\u5e94\u7528\u9009\u9879  \u4fdd\u5b58\u6210\u529f\u4e4b\u540e\uff0c\u770b\u5230\u6d4f\u89c8\u5668\u53f3\u4e0a\u89d2\u7684logo\uff1a  \u5355\u673a\uff0c\u9009\u62e9proxy\u4ee3\u7406\u6a21\u5f0f\u5c31\u53ef\u4ee5\u4e86\uff1a", 
+            "title": "2. Windows\u4e0a"
+        }, 
+        {
+            "location": "/#3-iphone", 
+            "text": "AppStore\u641c\u7d22wingy\uff08\u4efb\u4f55\u7c7b\u4f3c\u8f6f\u4ef6\u90fd\u53ef\u4ee5\uff09\uff0c\u5b89\u88c5\uff1a  \u65b0\u589e\u7ebf\u8def\uff1a    \u5bf9\u5e94\u7684\u53c2\u6570\u662f\u670d\u52a1\u7aef/etc/shadowsocks.json\u91cc\u7684\u53c2\u6570\u3002  \u7136\u540e\u4fdd\u5b58\u56de\u5230\u9996\u9875\uff0c\u9009\u62e9\u6b64\u7ebf\u8def\uff0c\u70b9\u51fb\u4e2d\u95f4\u7684\u5f00\u5173\uff0c\u5f00\u542fvpn\u6a21\u5f0f\u5c31\u53ef\u4ee5\u4e86\uff1a", 
+            "title": "3. iPhone\u4e0a"
+        }, 
+        {
+            "location": "/#4", 
+            "text": "\u4e0b\u8f7d\u5b89\u88c5\u5f71\u68ad\uff1a  https://speedfast365-big.com/static/dl/shadowsocks-nightly-4.2.5.apk   \u65b0\u589e\u914d\u7f6e\uff1a   \u5bf9\u5e94\u7684\u53c2\u6570\u662f\u670d\u52a1\u7aef/etc/shadowsocks.json\u91cc\u7684\u53c2\u6570, \u672c\u5730\u7aef\u53e3\u901a\u5e38\u662f1080.  \u914d\u7f6e\u5b8c\u6210\u4e4b\u540e\u4fdd\u5b58\uff0c\u5e76\u4e14\u5f00\u542f\u3002", 
+            "title": "4. \u5b89\u5353\u4e0a"
+        }
+    ]
+}
